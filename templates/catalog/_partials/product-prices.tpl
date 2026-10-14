@@ -10,7 +10,7 @@
           <div class="product__discount-price product__prices-inline product__prices-inline--small-gap">
             {hook h='displayProductPriceBlock' product=$product type="old_price"}
 
-            <span class="product__regular-price">
+            <span class="product__regular-price" data-ps-ref="product-regular-price">
               <span class="visually-hidden">{l s='Regular price: ' d='Shop.Theme.Catalog'}</span>
               {$product.regular_price}
             </span>
@@ -28,7 +28,7 @@
         {/if}
         
         <div class="product__prices-inline product__prices-inline--small-gap">
-          <div class="product__price">
+          <div class="product__price" data-ps-ref="product-price">
             {capture name='custom_price'}{hook h='displayProductPriceBlock' product=$product type='custom_price' hook_origin='product_sheet'}{/capture}
             {if !empty($smarty.capture.custom_price)}
               {$smarty.capture.custom_price nofilter}

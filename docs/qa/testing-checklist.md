@@ -176,7 +176,10 @@ Applies to `category`, `search`, `best-sales`, `new-products`, `prices-drop`, `m
 - [ ] Product miniatures: image, name, price, flags (new, on sale, pack, out of stock), review stars
 - [ ] Add to cart from a miniature: the Added to your cart modal opens, cart preview and totals updated, quantity input respected
 - [ ] Miniature quantity input honours the product's minimum quantity, and a lower value is refused
-- [ ] Product with combinations added from a miniature lands in the cart with its default combination
+- [ ] Product with combinations from a miniature: the attribute inputs are shown in the miniature without a click (`inline`, default; each group keeps its select, radio or colour presentation), or the button reads Choose and opens them in the shared bottom drawer or in the quickview, depending on `data-ps-miniature-add-mode` on `<body>` (`legacy`, `quickview`, `inline`, `drawer`; `?hb_miniature_mode=` switches it for a demo). Every attribute group can be chosen (a select shows no "Size: M" line above it, its legend stays for screen readers), the picture and the price (combination price impact) follow the choice, the choices sit under the price with the buttons of a row aligned, and the combination in the cart is the one chosen, not the default one
+- [ ] Colour swatches of a miniature with an add to cart form choose the colour in place (no navigation, the picture follows, the swatch is marked pressed) and unfold the other attribute groups; the colour group is not repeated below them. With `legacy`, or on a miniature without the form, they still link to the combination's page
+- [ ] An unavailable combination, or a quantity above the stock with orders denied, disables the miniature button and says why, before any click
+- [ ] After adding the last piece in stock from a miniature, its button is disabled without reloading the page, for products with and without combinations
 - [ ] Miniature falls back to a See details link when the product has no `add_to_cart_url`, so not available for order, or out of stock with orders denied
 - [ ] Sort orders: each option changes the order
 - [ ] `ps_facetedsearch`: each facet type (checkbox, dropdown, slider, colour), active filters, clear all, shareable URL, browser back and forward

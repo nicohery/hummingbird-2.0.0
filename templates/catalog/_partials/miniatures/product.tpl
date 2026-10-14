@@ -41,7 +41,7 @@
                 {block name='product_price'}
                   {hook h='displayProductPriceBlock' product=$product type="before_price"}
 
-                  <div class="{$componentName}__price" aria-label="{l s='Price' d='Shop.Theme.Catalog'}">
+                  <div class="{$componentName}__price" data-ps-target="miniature-price" aria-label="{l s='Price' d='Shop.Theme.Catalog'}">
                     {capture name='custom_price'}{hook h='displayProductPriceBlock' product=$product type='custom_price' hook_origin='products_list'}{/capture}
                     {if '' !== $smarty.capture.custom_price}
                       {$smarty.capture.custom_price nofilter}
@@ -61,7 +61,7 @@
                       {if $product.has_discount}
                         {hook h='displayProductPriceBlock' product=$product type="old_price"}
 
-                        <span class="{$componentName}__regular-price" aria-label="{l s='Regular price' d='Shop.Theme.Catalog'}">{$product.regular_price}</span>
+                        <span class="{$componentName}__regular-price" data-ps-target="miniature-regular-price" aria-label="{l s='Regular price' d='Shop.Theme.Catalog'}">{$product.regular_price}</span>
                       {/if}
                     </div>
                   {/if}
@@ -77,12 +77,37 @@
           {block name='product_actions'}
             <div class="{$componentName}__actions">
               {if $product.add_to_cart_url}
-                <form class="{$componentName}__form" action="{$urls.pages.cart}" method="post">
+                {capture assign='miniatureChooseLabel'}{l s='Choose' d='Shop.Theme.Actions'}{/capture}
+                {capture assign='miniatureChooseAria'}{l s='Choose options for %product_name%' sprintf=['%product_name%' => $product.name] d='Shop.Theme.Actions'}{/capture}
+                {capture assign='miniatureAddLabel'}{l s='Add to cart' d='Shop.Theme.Actions'}{/capture}
+                {capture assign='miniatureAddAria'}{l s='Add to cart %product_name%' sprintf=['%product_name%' => $product.name] d='Shop.Theme.Actions'}{/capture}
+                {capture assign='miniatureUnavailable'}{l s='This combination is not available.' d='Shop.Theme.Catalog'}{/capture}
+                {$miniatureAddData = [
+                  'hasCombinations' => (bool) $product.id_product_attribute,
+                  'name' => $product.name,
+                  'chooseLabel' => $miniatureChooseLabel,
+                  'chooseAria' => $miniatureChooseAria,
+                  'addLabel' => $miniatureAddLabel,
+                  'addAria' => $miniatureAddAria,
+                  'unavailable' => $miniatureUnavailable
+                ]}
+                <form
+                  class="{$componentName}__form"
+                  action="{$urls.pages.cart}"
+                  method="post"
+                  data-ps-component="miniature-add-to-cart"
+                  data-ps-data="{$miniatureAddData|json_encode|escape:'html':'UTF-8'}"
+                >
                   <input type="hidden" value="{$product.id_product}" name="id_product">
                   {if $product.id_product_attribute}
                       <input type="hidden" value="{$product.id_product_attribute}" name="id_product_attribute">
                   {/if}
                   <input type="hidden" name="token" value="{$static_token}">
+
+                  {if $product.id_product_attribute}
+                    {* Filled on demand with the product's attribute inputs, posted as group[...] *}
+                    <div class="{$componentName}__variants-panel" data-ps-target="miniature-variants" hidden></div>
+                  {/if}
   
                   <div class="quantity-button js-quantity-button">
                     {include file='components/qty-input.tpl'
@@ -102,7 +127,7 @@
                     data-ps-ref="add-to-cart"
                   >
                     <i class="material-icons" aria-hidden="true">&#xe854;</i>
-                    <span class="product-miniature__add-text">{l s='Add to cart' d='Shop.Theme.Actions'}</span>
+                    <span class="product-miniature__add-text" data-ps-target="add-to-cart-label">{l s='Add to cart' d='Shop.Theme.Actions'}</span>
                   </button>
                 </form>
               {else}

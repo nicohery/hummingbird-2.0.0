@@ -15,7 +15,7 @@
         {block name='product_cover'}
           {foreach from=$product.images item=image key=key name=productImages}
             <div class="carousel-item{if $image.id_image == $product.default_image.id_image} active{/if}">
-              <picture>
+              <picture{if $image.id_image == $product.default_image.id_image} data-ps-ref="product-cover-picture"{/if}>
                 {if isset($image.bySize.default_xl.sources.avif)}
                   <source 
                     srcset="

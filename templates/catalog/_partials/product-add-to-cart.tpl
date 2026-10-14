@@ -93,6 +93,7 @@
     {block name='product_minimal_quantity'}
       <div
         class="product__minimal-quantity product-minimal-quantity js-product-minimal-quantity"
+        data-ps-ref="product-minimal-quantity"
         {if $product.minimal_quantity <= 1}
           hidden
         {/if}

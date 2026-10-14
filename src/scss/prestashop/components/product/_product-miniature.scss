@@ -204,3 +204,113 @@ $product-miniature-container-query-width: 13.5rem;
     }
   }
 }
+
+// Choosing a combination from the miniature (js/modules/miniature-add-to-cart.ts)
+.product-miniature {
+  &__form:has(.product-miniature__variants-panel:not([hidden])) {
+    flex-wrap: wrap;
+  }
+
+  // The choices sit right under the price; the quantity and the button stay at the bottom of the card
+  &__actions:has(.product-miniature__variants-panel:not([hidden])) {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-top: 0;
+
+    .product-miniature__form {
+      flex-grow: 1;
+      align-content: space-between; // a row that wraps: the choices on the first line, the button on the last
+    }
+
+    .product-miniature__variants-panel {
+      align-self: stretch;
+      margin-bottom: auto; // narrow cards stack everything in a column
+    }
+
+    // A column that wraps would split into columns once the form is stretched
+    @container product-miniature (width < #{$product-miniature-container-query-width}) {
+      .product-miniature__form {
+        flex-wrap: nowrap;
+      }
+    }
+  }
+
+  &__form[data-ps-state="loading"] {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  &__variants-panel {
+    flex-basis: 100%;
+    order: -1;
+    margin-bottom: 0.5rem;
+  }
+
+  // The colour swatches, once they choose the colour of the add to cart
+  &__variants [aria-pressed="true"] {
+    outline: 2px solid var(--bs-primary);
+    outline-offset: 2px;
+  }
+
+  &__choice {
+    .product-variant {
+      margin-bottom: 0.5rem;
+    }
+
+    .product-variant__legend {
+      float: none; // Bootstrap floats legends and clears the next element, which is now hidden
+      margin-bottom: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    // The field shows the choice: no "Size: M" above it. A select keeps its legend for assistive
+    // technologies only (it names the select through aria-labelledby); button groups keep it visible.
+    .product-variant__selected {
+      display: none;
+    }
+
+    .product-variant:has(select) .product-variant__legend {
+      @include visually-hidden;
+    }
+  }
+
+  &__availability {
+    margin-bottom: 0;
+    font-size: 0.875rem;
+
+    &:empty {
+      display: none;
+    }
+
+    .product__availability-status {
+      display: flex;
+      gap: 0.25rem;
+      align-items: flex-start;
+    }
+
+    .product__availability-icon {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+.product-miniature-drawer {
+  --bs-offcanvas-height: auto;
+  max-height: 80vh;
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  &__qty {
+    flex-shrink: 0;
+  }
+
+  &__add {
+    flex-grow: 1;
+  }
+}

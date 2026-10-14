@@ -33,6 +33,7 @@
       {/if}
 
       {include file='_partials/copyright.tpl'}
+      {include file='catalog/_partials/miniatures/variants-drawer.tpl'}
     </div>
   </div>
 {/block}

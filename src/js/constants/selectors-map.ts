@@ -197,6 +197,24 @@ export const passwordPolicy = {
   announceValidity: '[data-ps-target="password-announce-validity"]',
 };
 
+export const miniatureAddToCart = {
+  form: '[data-ps-component="miniature-add-to-cart"]',
+  variants: '[data-ps-target="miniature-variants"]',
+  availability: '[data-ps-target="miniature-availability"]',
+  availabilityName: 'miniature-availability',
+  addLabel: '[data-ps-target="add-to-cart-label"]',
+  drawer: '[data-ps-ref="miniature-variants-drawer"]',
+  drawerTitle: '[data-ps-target="miniature-drawer-title"]',
+  image: '[data-ps-target="miniature-image"]',
+  variantLink: '[data-ps-action="miniature-choose-variant"]',
+  coverPicture: '[data-ps-ref="product-cover-picture"]',
+  minimalQuantity: '[data-ps-ref="product-minimal-quantity"]',
+  price: '[data-ps-target="miniature-price"]',
+  regularPrice: '[data-ps-target="miniature-regular-price"]',
+  productPrice: '[data-ps-ref="product-price"]',
+  productRegularPrice: '[data-ps-ref="product-regular-price"]',
+};
+
 const selectorsMap = {
   layout,
   qtyInput,
@@ -243,6 +261,7 @@ const selectorsMap = {
   blockcartModal: '[data-ps-ref="blockcart-modal"]',
   blockcartModalStatus: '[data-ps-target="blockcart-modal-status"]',
   addToCartButton: '[data-ps-ref="add-to-cart"]',
+  miniatureAddToCart,
   facetedsearch,
   pageLoader,
   listing,
